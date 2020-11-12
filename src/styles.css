@@ -20,10 +20,10 @@ nav {
 }
 
 .root {
-     display: flex;
-     flex-direction: row;
-     justify-content: space-between;
- }
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 .container {
     margin: 20px 10px;
@@ -55,4 +55,43 @@ nav {
     background-color: rgba(0, 0, 200, 0.3);
     border-radius: 5px;
     cursor: pointer;
+}
+
+.preview {
+    width: 70%;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.book__img {
+    width: 50%;
+    max-width: 60%;
+    height: auto;
+}
+
+.btn {
+    display: block;
+    margin-left: 5px;
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(0, 0, 300, 0.5);
+    border: gray solid 1px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: rgba(0, 0, 300, 0.6);
+    color: #ffff;
+    font-weight: bold;
+}
+
+.btn-edit {
+    width: 15%;
+    padding: 5px;
+}
+
+.btn-add {
+    width: 50%;
+    margin: 10px auto;
 }
