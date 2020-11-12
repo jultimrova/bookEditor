@@ -1,0 +1,58 @@
+body {
+    font-family: Cambria, serif;
+    font-size: 20px;
+}
+
+h1 {
+    margin: 5px;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.root {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+ }
+
+.container {
+    margin: 20px 10px;
+    padding: 10px;
+    background: beige;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
+}
+
+.list {
+    width: 30%;
+}
+
+.book-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center
+}
+
+.book-list__title {
+    flex-grow: 1;
+    width: 50%;
+    padding: 10px 0;
+}
+
+.book-list__title:hover {
+    background-color: rgba(0, 0, 200, 0.3);
+    border-radius: 5px;
+    cursor: pointer;
+}
