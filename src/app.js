@@ -17,8 +17,6 @@ const addButton = document.createElement('a')
 addButton.classList.add('btn', 'btn-add')
 addButton.innerHTML = 'Add'
 
-window.history.pushState('', 'main page', '/FL14_HW16/homework/index.html')
-
 root.append(bookListContainer)
 bookListContainer.append(listHeading)
 renderBookList(booksArray, bookListContainer)
@@ -26,6 +24,23 @@ bookListContainer.appendChild(addButton)
 root.append(bookPreviewContainer)
 renderAllBooks()
 
+window.history.pushState('', 'main page', '/bookEditor/src/index.html')
+
+const bookList = document.querySelector('.book-list')
+
+bookList.addEventListener('click', e => {
+    const target = e.target
+    const targetId = +target.id
+    console.log(target)
+    bookPreviewContainer.innerHTML = null
+
+    for (const {id, title, author, imageLink, plot} of booksArray) {
+        if (targetId === id && target.classList.contains('book-list__title')) {
+            e.preventDefault()
+            renderBookPreview({id, title, author, imageLink, plot}, bookPreviewContainer)
+        }
+    }
+})
 
 function renderAllBooks() {
     for (let {id, title, author, imageLink, plot} of booksArray) {
@@ -47,7 +62,7 @@ function renderBookPreview({id, title, author, imageLink, plot}, node) {
     `
 
     node.insertAdjacentHTML('beforeend', bookPrev)
-    history.pushState({}, 'add book', `/FL14_HW16/homework/index.html#preview?id=${id}`)
+    history.pushState({}, 'add book', `/bookEditor/src/index.html#preview?id=${id}`)
 }
 
 function renderBookList(data, node) {
