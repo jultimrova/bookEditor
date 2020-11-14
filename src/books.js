@@ -1,4 +1,4 @@
-let books = [
+window.books = [
     {
         'id': 1,
         'author': 'Hans Christian Andersen',
@@ -64,5 +64,3 @@ let books = [
         'plot': 'Some description'
     }
 ]
-
-localStorage.setItem('books', JSON.stringify(books))
