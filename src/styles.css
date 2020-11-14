@@ -54,13 +54,13 @@ body {
     width: 60%;
 }
 
-.book-preview {
+.book-preview, .single-book-preview, .add-book {
     display: flex;
     flex-direction: column;
     margin: 10px;
 }
 
-.book-preview.visible {
+.book-preview.visible, .single-book-preview.visible, .add-book.visible{
     display: none;
 }
 
@@ -95,4 +95,15 @@ body {
 .btn-add {
     width: 50%;
     margin: 10px auto;
+}
+
+.btn-group {
+    display: flex;
+    flex-direction: row;
+}
+
+.input-field {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
 }

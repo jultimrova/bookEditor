@@ -12,33 +12,106 @@ dynamicContainer.innerHTML = 'Dynamic container for preview single book, add or 
 
 const bookPreview = document.createElement('div')
 bookPreview.classList.add('book-preview')
-bookPreview.innerHTML = 'Book preview'
+bookPreview.innerHTML = 'All books preview'
+
+const singleBookPreview = document.createElement('div')
+singleBookPreview.classList.add('single-book-preview')
+singleBookPreview.innerHTML = 'Single book preview'
+
+const addBookContainer = document.createElement('div')
+addBookContainer.classList.add('add-book')
+addBookContainer.innerHTML = 'Add book'
+
+history.pushState({}, '', `/bookEditor/src/index.html`)
 
 rootNode.append(bookListSection)
 rootNode.append(dynamicContainer)
 dynamicContainer.append(bookPreview)
+dynamicContainer.append(singleBookPreview)
+dynamicContainer.append(addBookContainer)
 renderBookList(books, bookListSection)
 renderAllBooks()
 
 const bookList = document.querySelector('.book-list')
 const preview = document.querySelector('.book-preview')
+const singlePreview = document.querySelector('.single-book-preview')
+const addBook = document.querySelector('.add-book')
+const addBtn = document.querySelector('.btn-add')
+
+
+addBtn.addEventListener('click', e => {
+    preview.classList.add('visible')
+    singlePreview.classList.add('visible')
+    addBook.classList.remove('visible')
+
+    history.pushState({}, 'add book', '/bookEditor/src/index.html#add')
+
+    addBook.innerHTML = ''
+    addBook.insertAdjacentHTML('beforeend', `
+        <h3>Add book</h3>
+        <form id="add-book-form" class="add-book-form">
+            <label for="add-book-title">Book's title: </label>
+            <input type="text" id="add-book-title" name="title" class="input-field" value='' required>
+            <label for="add-book-author">Book's author: </label>
+            <input type="text" id="add-book-author" name="author" class="input-field" value='' required>
+            <label for="add-book-image">Book's image: </label>
+            <input type="url" id="add-book-image" name="image" class="input-field" value='' required>
+            <label for="add-book-plot">Book's description: </label>
+            <textarea id="add-book-plot" name="plot" class="input-field" rows="10" required></textarea>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-save">Save</button>
+                <button type="button" id="add-book__cancel" class="btn btn-cancel">Cancel</button>
+            </div>
+        </form>
+    `)
+
+    const addForm = document.querySelector('.add-book-form')
+    addForm.addEventListener('submit', e => {
+        e.preventDefault()
+        const titleInput = addForm.querySelector('#add-book-title').value
+        const authorInput = addForm.querySelector('#add-book-author').value
+        const imageURLInput = addForm.querySelector('#add-book-image').value
+        const descInput = addForm.querySelector('#add-book-plot').value
+
+        const book = {
+            id: books.length + 1,
+            title: titleInput,
+            author: authorInput,
+            imageLink: imageURLInput,
+            plot: descInput
+        }
+
+        books.push(book)
+        localStorage.setItem('books', JSON.stringify(books))
+
+        bookList.insertAdjacentHTML('beforeend', `
+            <li class="book-list__title" id="${book.id}">${book.title}</li>
+            <button class="btn btn-edit" data-id="${book.id}" id="edit-${book.id}" type="button">Edit</button>
+        `)
+
+        addBook.classList.add('visible')
+    })
+})
 
 bookList.addEventListener('click', e => {
     if (e.target.classList.contains('book-list__title')) {
-        books.forEach(({ id, title, author, imageLink, plot }) => {
+        books.forEach(({id, title, author, imageLink, plot}) => {
             if (+e.target.id === id) {
                 preview.classList.add('visible')
-                dynamicContainer.innerHTML = ''
-                renderBook({ id, title, author, imageLink, plot }, dynamicContainer)
+                singlePreview.classList.remove('visible')
+                addBook.classList.add('visible')
+                singlePreview.innerHTML = ''
+                renderBook({id, title, author, imageLink, plot}, singleBookPreview)
+                history.pushState({}, '', `/bookEditor/src/index.html#preview?id=${id}`)
             }
         })
     }
-
 })
 
 function renderAllBooks() {
-    books.forEach(({ id, title, author, imageLink, plot }) => {
-        renderBook({ id, title, author, imageLink, plot }, bookPreview)
+    history.pushState({}, '', `/bookEditor/src/index.html`)
+    books.forEach(({id, title, author, imageLink, plot}) => {
+        renderBook({id, title, author, imageLink, plot}, bookPreview)
     })
 }
 
@@ -54,7 +127,6 @@ function renderBook({id, title, author, imageLink, plot}, node) {
     `
 
     node.insertAdjacentHTML('beforeend', book)
-    history.pushState({}, '', `/bookEditor/src/index.html#preview`)
 }
 
 function renderBookList(books, node) {
@@ -65,7 +137,7 @@ function renderBookList(books, node) {
     books.forEach(({id, title}) => {
         list += `
             <li class="book-list__title" id="${id}">${title}</li>
-            <button class="btn btn-edit" data-id="${id}" type="button">Edit</button>
+            <button class="btn btn-edit" data-id="${id}" id="edit-${id}" type="button">Edit</button>
         `
     })
     list += `
