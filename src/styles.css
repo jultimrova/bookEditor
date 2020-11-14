@@ -54,13 +54,13 @@ body {
     width: 60%;
 }
 
-.book-preview, .single-book-preview, .add-book {
+.book-preview, .single-book-preview, .add-book, .edit-book {
     display: flex;
     flex-direction: column;
     margin: 10px;
 }
 
-.book-preview.visible, .single-book-preview.visible, .add-book.visible{
+.book-preview.visible, .single-book-preview.visible, .add-book.visible, .edit-book.visible {
     display: none;
 }
 
