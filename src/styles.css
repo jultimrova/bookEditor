@@ -1,27 +1,8 @@
 body {
-    font-family: Cambria, serif;
-    font-size: 20px;
-}
-
-h1 {
-    margin: 5px;
-    text-align: center;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-
-nav {
     margin: 0;
     padding: 0;
-    list-style: none;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
+    font-family: Cambria, serif;
+    font-size: 24px;
 }
 
 .root {
@@ -31,15 +12,20 @@ form {
 }
 
 .container {
-    margin: 20px 10px;
-    padding: 10px;
-    background: beige;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
+    margin: 0 20px;
+    padding: 20px;
+    background-color: beige;
+    border: black 1px solid;
+    border-radius: 5px ;
 }
 
-.list {
+.book-list-section {
     width: 30%;
+}
+
+.heading {
+    margin: 5px;
+    text-align: center;
 }
 
 .book-list {
@@ -47,7 +33,9 @@ form {
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
-    align-items: center
+    align-items: center;
+    padding: 0;
+    list-style: none;
 }
 
 .book-list__title {
@@ -62,22 +50,30 @@ form {
     cursor: pointer;
 }
 
-.preview {
-    width: 70%;
-    margin-left: 10px;
-    padding: 10px;
+.dynamic-section {
+    width: 60%;
+}
+
+.book-preview {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.book-preview.visible {
+    display: none;
 }
 
 .book__img {
     width: 50%;
-    max-width: 60%;
-    height: auto;
+    object-fit: cover;
 }
 
 .btn {
     display: block;
     margin-left: 5px;
     padding: 10px;
+    font-size: 15px;
     text-align: center;
     background-color: rgba(0, 0, 300, 0.5);
     border: gray solid 1px;
@@ -93,25 +89,10 @@ form {
 
 .btn-edit {
     width: 15%;
-    padding: 5px;
+    padding: 10px;
 }
 
 .btn-add {
     width: 50%;
     margin: 10px auto;
-}
-
-.book-form {
-    display: flex;
-    flex-direction: column;
-}
-
-.btn-group {
-    display: flex;
-    flex-direction: row;
-}
-
-.input-field {
-    margin: 10px;
-    padding: 10px;
 }
